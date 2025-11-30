@@ -92,6 +92,11 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://hospital-system-production.up.railway.app",
+]
+
+
 
 # Password validation
 
