@@ -14,8 +14,12 @@ SECRET_KEY = 'django-insecure-u*t$5m1_9!j%ddiubigi+t*xj6&eo4+21%g*4ez-pu%+14)wg3
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "hospital-system-production.up.railway.app",
+    ".up.railway.app",  
+]
 
 # Application definition
 
