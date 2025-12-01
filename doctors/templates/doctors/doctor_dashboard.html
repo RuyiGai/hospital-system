@@ -49,68 +49,73 @@
     		</div>
 
     		{% if todays_appointments %}
-        		<div class="card-body">
+        	
+<div class="card mb-lg">
+    <div class="card-header">
+        <h2 class="card-title">Today's Schedule</h2>
+        <p class="card-subtitle">
+            {{ today|date:"M d, Y" }} ·
+            {% if todays_appointments %}
+                {{ todays_appointments|length }} appointment{{ todays_appointments|length|pluralize }}
+            {% else %}
+                No appointments scheduled for today.
+            {% endif %}
+        </p>
+    </div>
 
-            		{% now "H:i" as current_time %}
-            		<ul class="list-vertical">
+    {% if todays_appointments %}
+        <div class="card-body">
+            <ul class="list-vertical">
 
-                		{# 只显示 "正在进行或未来" 的预约 #}
-                		{% for appt in todays_appointments %}
-                    		{% if appt.end_time|time:"H:i" >= current_time %}
+                {% for appt in todays_appointments %}
+                <li class="list-item">
+                    <div class="list-item-main">
+                        <div class="list-item-title">
+                            {{ appt.appointment_date|date:"M d, Y" }}
+                            &middot;
+                            {{ appt.start_time|time:"g:i A" }} – {{ appt.end_time|time:"g:i A" }}
+                            &middot;
+                            {{ appt.patient.first_name }} {{ appt.patient.last_name }}
+                            {% if appt.patient.mrn %}
+                                (MRN {{ appt.patient.mrn }})
+                            {% endif %}
+                        </div>
 
-                        		<li class="list-item">
-                            		<div class="list-item-main">
-                                		<div class="list-item-title">
-                                    		{{ appt.start_time|time:"g:i A" }} – {{ appt.end_time|time:"g:i A" }}
-                                    		&middot;
-                                    		{{ appt.patient.first_name }} {{ appt.patient.last_name }}
-                                    		{% if appt.patient.mrn %}
-                                       		 (MRN {{ appt.patient.mrn }})
-                                    		{% endif %}
-                                		</div>
-                                		<div class="list-item-sub">
-                                    		{% if appt.reason %}
-                                        		Reason: {{ appt.reason }} &middot;
-                                    		{% endif %}
-                                    		Status:
-                                    		<span class="badge">{{ appt.get_status_display }}</span>
-                                		</div>
-                            		</div>
+                        <div class="list-item-sub">
+                            {% if appt.reason %}
+                                Reason: {{ appt.reason }} &middot;
+                            {% endif %}
+                            Status:
+                            <span class="badge">{{ appt.get_status_display }}</span>
+                        </div>
+                    </div>
 
-                            		<div class="list-item-actions">
-                                		<a
-                                    		href="{% url 'appointments:appointment_detail' appt.pk %}"
-                                    		class="btn btn-xs btn-outline"
-                                		>
-                                    		View
-                                		</a>
+                    <div class="list-item-actions">
+                        <a href="{% url 'appointments:appointment_detail' appt.pk %}"
+                           class="btn btn-xs btn-outline">
+                            View
+                        </a>
 
-                                		<a
-                                    		href="{% url 'doctors:dashboard' %}?q={{ appt.patient.mrn|urlencode }}"
-                                    		class="btn btn-xs btn-primary"
-                                		>
-                                    		Open Patient
-                                		</a>
+                        <a href="{% url 'doctors:dashboard' %}?q={{ appt.patient.mrn|urlencode }}"
+                           class="btn btn-xs btn-primary">
+                            Open Patient
+                        </a>
 
-                                		<a
-                                    		href="{% url 'encounters:create_from_appointment' appt.pk %}"
-                                    		class="btn btn-xs btn-success"
-                                		>
-                                    		Start Visit
-                                		</a>
-                            		</div>
-                        		</li>
-
-                    		{% endif %}
+                        <a href="{% url 'encounters:create_from_appointment' appt.pk %}"
+                           class="btn btn-xs btn-success">
+                            Start Visit
+                        </a>
+                    </div>
+                </li>
                 {% endfor %}
-
-                {# 如果所有预约都结束了，给提示 #}
-                {% if todays_appointments|length == 0 %}
-                    <p class="text-muted">No remaining appointments for today.</p>
-                {% endif %}
 
             </ul>
         </div>
+    {% endif %}
+</div>
+
+
+
     {% endif %}
 </div>
     {% endif %}
