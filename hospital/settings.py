@@ -138,6 +138,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "hospital" / "static",
 ]
 
+# Production static files output location (Railway uses this)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # DEFAULT
 
