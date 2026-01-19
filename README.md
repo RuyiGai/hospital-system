@@ -93,9 +93,8 @@ This project was developed for **academic and learning purposes**, with the goal
 
 ## 👤 Author
 
+**Edward Ng'wena**
 **Ruyi Gai**  
-M.S. Student in Data Science & Artificial Intelligence  
-University of Central Missouri
 
 ---
 
