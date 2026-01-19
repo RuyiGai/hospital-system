@@ -101,6 +101,7 @@ This project was developed for **academic and learning purposes**, with a strong
 ## 👤 Author
 
 **Edward Ng'wena**
+
 **Ruyi Gai**  
 
 ---
